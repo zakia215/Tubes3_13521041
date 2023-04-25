@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 
-const qnaSchema = new mongoose.Schema({
+const QNASchema = new mongoose.Schema({
     question: {
         type: String,
-        required: [true, 'Must provide question'],
-        trim: true
+        required: [true, 'Please provide question']
     },
     answer: {
         type: String,
-        required: [true, 'Must provide answer'],
-        trim: true
+        required: [true, 'Please provide answer']
     }
 });
 
-module.exports = qnaSchema;
+module.exports = mongoose.model('QnA', QNASchema);

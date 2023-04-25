@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
-const qnaSchema = require('./qna');
 
-const historySchema = new mongoose.Schema({
+const HistorySchema = new mongoose.Schema({
     name: {
-        type: String
+        type: String,
+        required: [true, 'must provide name'],
+        trim: true
     },
-    qnaSchema: {
-        type: [qnaSchema],
+    questionList: {
+        type: [],
         default: []
     }
 });
 
-module.exports = historySchema;
+module.exports = mongoose.model('History', HistorySchema);
