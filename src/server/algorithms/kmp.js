@@ -44,4 +44,4 @@ function borderFunction(pattern) {
     return prefixTable;
 }
 
-console.log(KMPSearch('dynasties and distopia', 'distopia'));
+console.log(KMPSearch('dynasties and distopia', 'd'));
