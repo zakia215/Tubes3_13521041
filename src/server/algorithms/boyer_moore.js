@@ -2,10 +2,10 @@ function BMSearch(text, pattern) {
     const n = text.length;
     const m = pattern.length;
     if (m === 0) {
-        return [0];
+        return 0;
     }
     if (n < m) {
-        return [];
+        return -1;
     }
   
     const last = LastOccurence(pattern);
@@ -30,7 +30,11 @@ function BMSearch(text, pattern) {
         }
     }
 
-    return matches;
+    if (matches.length === 0) {
+        return -1;
+    } else {
+        return matches[0];
+    }
 }
   
 function LastOccurence(pattern) {
