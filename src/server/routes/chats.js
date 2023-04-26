@@ -5,11 +5,10 @@ const {
     createChat,
     getSingleChat,
     deleteChat,
-    updateChat,
-    askQuestion
+    updateChat
 } = require('../controllers/chats');
 
 router.route('/').get(getAllChat).post(createChat);
-router.route('/:chatID').get(getSingleChat).post(askQuestion).patch(updateChat).delete(deleteChat);
+router.route('/:id').get(getSingleChat).patch(updateChat).delete(deleteChat);
 
 module.exports = router;
