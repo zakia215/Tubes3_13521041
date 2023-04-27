@@ -1,21 +1,21 @@
 function KMPSearch(text, pattern) {
-    let prefixTable = getPrefixTable(pattern);
-    let textIndex = 0;
-    let patternIndex = 0;
+    let prefixTable = borderFunction(pattern);
+    let i = 0;  // text index
+    let j = 0;  // pattern index
 
-    while (textIndex < text.length) {
-        if (pattern[patternIndex] === text[textIndex]) {
-            textIndex++;
-            patternIndex++;
+    while (i < text.length) {
+        if (pattern[j] === text[i]) {
+            i++;
+            j++;
         }
 
-        if (patternIndex === pattern.length) {
-            return textIndex - patternIndex;
-        } else if (textIndex < text.length && pattern[patternIndex] !== text[textIndex]) {
-            if (patternIndex !== 0) {
-                patternIndex = prefixTable[patternIndex - 1];
+        if (j === pattern.length) {
+            return i - j;
+        } else if (i < text.length && pattern[j] !== text[i]) {
+            if (j !== 0) {
+                j = prefixTable[j - 1];
             } else {
-                textIndex++;
+                i++;
             }
         }
     }
@@ -23,7 +23,7 @@ function KMPSearch(text, pattern) {
     return -1;
 }
 
-function getPrefixTable(pattern) {
+function borderFunction(pattern) {
     let prefixTable = [0];
     let i = 0;
     let j = 1;
@@ -43,3 +43,5 @@ function getPrefixTable(pattern) {
 
     return prefixTable;
 }
+
+console.log(KMPSearch('dynasties and distopia', 'd'));
