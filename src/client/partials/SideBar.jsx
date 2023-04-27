@@ -14,6 +14,7 @@ function SideBar() {
     <div className="sidebar-container">
       <History />
         
+      
       <div className="selected-algorithm-container">
         <div id="selected-algorithm">Selected Algorithm</div>
 
@@ -49,8 +50,8 @@ function SideBar() {
           </div>
 
         </div>
-
       </div>
+
         
       <div className="new-chat-container">
         {/* + new chat */}
