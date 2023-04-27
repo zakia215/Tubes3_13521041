@@ -1,7 +1,7 @@
 
 import '../css/style.css';
 import '../css/chatSide.css';
-import MagicConchShellForm from './form'
+// import MagicConchShellForm from './form'
 import react from 'react';
 
 function ChatSide() {
@@ -57,7 +57,7 @@ function ChatSide() {
       <div className="chat-form-container">
         q 
       </div>
-      {MagicConchShellForm}
+      {/* {MagicConchShellForm} */}
     </div>
   );
 }
