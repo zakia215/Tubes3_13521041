@@ -17,6 +17,43 @@ function hasMathProperties(string) {
     return result;
 }
 
+function checkLeapYear(year) {
+    return ((0 == year % 4) && (0 != year % 100) || (0 == year % 400))
+}
+
 function isValidDate(string) {
     // string is in the format of dd//mm//yyyy and is to be checked
+    const dateMatch = string.slice(0, 2);
+    const monthMatch = string.slice(3, 5);
+    const yearMatch = string.slice(6, 10);
+    if (monthMatch === '04' || monthMatch === '06' || monthMatch === '09' || monthMatch === '11') {
+        if (dateMatch === '31') {
+            return false;
+        }
+    } else if (monthMatch === '02') {
+        let bottomBound = 28;
+        if (checkLeapYear(Number(yearMatch))) {
+            bottomBound++;
+        }
+        if (Number(dateMatch) > bottomBound) {
+            return false;
+        }
+    }
+    return true;
 }
+
+function getDay(validDate) {
+    const dateMatch = validDate.slice(0, 2);
+    const monthMatch = validDate.slice(3, 5);
+    const yearMatch = validDate.slice(6, 10);
+    const date1 = new Date(monthMatch + '/' + dateMatch + '/' + yearMatch);
+    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return weekday[date1.getDay()];
+}
+
+// console.log(isValidDate('31/04/2003'));
+// console.log(isValidDate('29/02/2003'));
+// console.log(isValidDate('29/02/2004'));
+// console.log(isValidDate('31/01/2004'));
+
+// console.log(eval('5 * 8 - 10 + 23'));
