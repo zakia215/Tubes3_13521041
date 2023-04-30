@@ -41,4 +41,6 @@ function LastOccurence(pattern) {
     return last;
 }
 
-console.log(BMSearch('dynasties and distopia', 'd'));
+// console.log(BMSearch('dynasties and distopia', 'd'));
+
+module.exports = BMSearch;

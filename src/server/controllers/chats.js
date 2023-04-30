@@ -1,4 +1,5 @@
 const History = require('../models/history');
+const QnA = require('../models/qna');
 const asyncWrapper = require('../middleware/async');
 const { createCustomError } = require('../errors/custom-error');
 
@@ -35,10 +36,23 @@ const deleteChat = asyncWrapper(async (req, res, next) => {
 
 const updateChat = asyncWrapper(async (req, res, next) => {
     const { id: chatID } = req.params;
-    const { q: question } = req.body;
-    const answer = 'this is a sample answer';
+    let newValue = req.body;
+    if ('question' in req.body) {
+        const singleChat = await History.findOne({ _id: chatID });
+        const qna = await QnA.find();
+        const tempanswer = 'Who says Im gay?';
+        const tupleToAdd = {
+            question: req.body.question,
+            answer: tempanswer
+        }
+        let localList = singleChat.questionList;
+        localList.push(tupleToAdd);
+        newValue = {
+            questionList: localList
+        }
+    }
 
-    const chat = await History.findOneAndUpdate({ _id: chatID }, req.body, {
+    const chat = await History.findOneAndUpdate({ _id: chatID }, newValue, {
         new: true,
         runValidators: true
     });
