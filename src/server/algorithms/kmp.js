@@ -45,3 +45,5 @@ function borderFunction(pattern) {
 }
 
 console.log(KMPSearch('dynasties and distopia', 'd'));
+
+module.exports = KMPSearch;

@@ -1,7 +1,7 @@
 // tinggal .match() kalo mau coockin
 const operations = /^(\s*\d+(\.\d+)?\s*([-+*/]\s*\d+(\.\d+)?\s*)*\s*)+&/ig
 const date = /(0?[1-9]|[1-2][0-9]|3[0-1])\/(0?[1-9]|1[0-2])\/\d{4}/g
-const delQuestion = /^hapus pertanyaan .*$/i;
+const del_question = /^hapus pertanyaan .*$/i;
 const add_question = /^tambah pertanyaan . dengan jawaban .$/i;
 
 function hasMathProperties(string) {
@@ -56,4 +56,14 @@ function getDay(validDate) {
 // console.log(isValidDate('29/02/2004'));
 // console.log(isValidDate('31/01/2004'));
 
-// console.log(eval('5 * 8 - 10 + 23'));
+console.log(eval('5 * 8 - 10 + - + / 3'));
+
+module.exports = {
+    operations,
+    date,
+    del_question,
+    add_question,
+    hasMathProperties,
+    isValidDate,
+    getDay
+}
