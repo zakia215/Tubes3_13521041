@@ -12,6 +12,11 @@ function SideBar() {
 
   return (
     <div className="sidebar-container">
+      <div className="new-chat-container">
+        <button className="new-chat-button"> + New Chat</button>
+
+      </div>
+
       <History />
         
       
@@ -50,13 +55,6 @@ function SideBar() {
           </div>
 
         </div>
-      </div>
-
-        
-      <div className="new-chat-container">
-        {/* + new chat */}
-        <button className="new-chat-button"> + New Chat</button>
-
       </div>
 
     </div>

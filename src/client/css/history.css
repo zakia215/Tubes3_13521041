@@ -17,12 +17,13 @@
 
 .history-container-wrapper {
     padding-right: 5px;
+    /* flex-grow: 1; */
 }
 
 .history-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 330px);
+    height: calc(100vh - 247px);
     justify-content: flex-start;
     color: #F4F1F9;
     overflow-y: auto;
@@ -39,27 +40,27 @@
 
 /* default style untuk scrollbar */
 .history-container::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .history-container::-webkit-scrollbar-thumb {
-    background-color: #F4F1F9;
-    border-radius: 4px;
-  }
-  
-  /* menghilangkan scrollbar saat tidak dihover */
-  .history-container::-webkit-scrollbar {
-    width: 0;
-  }
-  
-  .history-container:hover::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .history-container:hover::-webkit-scrollbar-thumb {
-    background-color: #F4F1F9;
-    border-radius: 4px;
-  }
+  width: 8px;
+}
+
+.history-container::-webkit-scrollbar-thumb {
+  background-color: #F4F1F9;
+  border-radius: 4px;
+}
+
+/* menghilangkan scrollbar saat tidak dihover */
+.history-container::-webkit-scrollbar {
+  width: 0;
+}
+
+.history-container:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-container:hover::-webkit-scrollbar-thumb {
+  background-color: #F4F1F9;
+  border-radius: 4px;
+}
   
 .history-item {
     padding: 19px;
