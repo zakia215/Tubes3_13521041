@@ -1,32 +1,28 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { useState } from 'react';
+import '../css/style.css';
 
-function MagicConchShellForm(props) {
-  const [question, setQuestion] = useState("");
+function MagicConchShellForm() {
+  const [inputText, setInputText] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // props.chatList.push
-    // do something with the question input
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(inputText);
+  };
+
+  const handleChange = (e) => {
+    setInputText(e.target.value);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Ask the magic conch shell...
-        <input
-          type="text"
-          placeholder="Ask the magic conch shell..."
-          value={question}
-          onChange={(event) => setQuestion(event.target.value)}
-        />
-      </label>
-      <button type="submit">
-        <FontAwesomeIcon icon={faPaperPlane} />
-      </button>
-    </form>
-  );
+    <div className="form-container">
+      <textarea
+        placeholder="Ask the magic conch shell..."
+        value={inputText}
+        onChange={handleChange}
+      />
+      <img className="search" src="../public/shell.png" alt="Submit" onClick={handleSubmit} />
+    </div>
+);
 }
 
 export default MagicConchShellForm;
