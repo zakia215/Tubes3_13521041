@@ -24,7 +24,7 @@
     height: 100vh;
     top: 0;
     background-color: #A689B0;
-    color:white;
+    color:#F4F1F9;
     width: 250px;
     flex-shrink: 0;
 }
@@ -62,6 +62,7 @@
     border-radius: 10px;
     font-weight: 700;
     font-size: 18px;
+    background-color: #F4F1F9;
     color: #9271A1;
 }
 
