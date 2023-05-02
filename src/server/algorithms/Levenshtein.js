@@ -46,12 +46,7 @@ function CompareString(str1, str2) {
             }
         }
     }
-  
-    if (miss === 0) {
-        ret.push(true);
-    } else {
-        ret.push(false);
-    } 
+ 
     ret.push(miss);
     ret.push(val.length);
     return ret;

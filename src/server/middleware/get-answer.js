@@ -42,9 +42,25 @@ function get_answer_string(question, question_db, is_kmp) {
         let similar_question = [];
         // for () {
             if (is_kmp) {
-                
+                for (let i = 0; i< question_db.length; i++) {
+                    if (KMPSearch(question_db[i].question, question) != -1) {
+                        similarity_question.push(100);
+                    } else {
+                        let [count1, count2] = CompareString(question_db[i].question, question);
+                        let LD = LevenshteinDistance(question_db[i].question, question);
+                        similarity_question.push(100 - LD - 2*(count1-count2));
+                    }
+                }
             } else {
-                
+                for (let i = 0; i< question_db.length; i++) {
+                    if (BMSearch(question_db[i].question, question) != -1) {
+                        similarity_question.push(100);
+                    } else {
+                        let [count1, count2] = CompareString(question_db[i].question, question);
+                        let LD = LevenshteinDistance(question_db[i].question, question);
+                        similarity_question.push(100 - LD - 2*(count1-count2));
+                    }
+                }
             }
         // }
     }
