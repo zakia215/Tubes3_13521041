@@ -56,7 +56,13 @@ function getDay(validDate) {
 // console.log(isValidDate('29/02/2004'));
 // console.log(isValidDate('31/01/2004'));
 
-console.log(eval('5 * 8 - 10 + - + / 3'));
+const question_string = "Apa ibukota indonesia?"
+const question_list = question_string.split("--");
+for (let i = 0; i < question_list.length; i++) {
+    console.log(question_list[i].trim());
+}
+
+// console.log(eval('5 * 8 - 10 + - + / 3'));
 
 module.exports = {
     operations,
@@ -65,5 +71,5 @@ module.exports = {
     add_question,
     hasMathProperties,
     isValidDate,
-    getDay
+    getDay,
 }

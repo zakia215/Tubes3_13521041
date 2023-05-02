@@ -12,6 +12,15 @@ const {
 } = require('../algorithms/regex');
 
 function get_answer_string(question, question_db, is_kmp) {
+    // {
+    //   question: "",
+    //   answer: ""
+    // }
+    // question_db.length
+    const question_list = question.split("--");
+    for (let i = 0; i < question_list.length; i++) {
+        question_list[i] = question_list[i].trim();
+    }
     const is_date = question.match(date);
     const has_math_prop = question.match(hasMathProperties);
     const is_del_question = question.match(del_question);
@@ -30,14 +39,13 @@ function get_answer_string(question, question_db, is_kmp) {
     } else if (is_add_question) {
 
     } else {
-        let found = false;
-        if (is_kmp) {
-
-        } else {
-
-        }
-        if (!found) {
-            
-        }
+        let similar_question = [];
+        // for () {
+            if (is_kmp) {
+                
+            } else {
+                
+            }
+        // }
     }
 }
