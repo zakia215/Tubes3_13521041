@@ -7,12 +7,12 @@ function BMSearch(text, pattern) {
     if (n < m) {
         return -1;
     }
-  
+
     const last = LastOccurence(pattern);
     let i = m - 1;
     let j = m - 1;
     const matches = [];
-  
+
     while (i < n) {
         if (text[i] === pattern[j]) {
             if (j === 0) {
@@ -36,7 +36,7 @@ function BMSearch(text, pattern) {
         return matches[0];
     }
 }
-  
+
 function LastOccurence(pattern) {
     const last = {};
     for (let i = 0; i < pattern.length; i++) {
@@ -47,4 +47,4 @@ function LastOccurence(pattern) {
 
 // console.log(BMSearch('dynasties and distopia', 'd'));
 
-module.exports = BMSearch;
+module.exports = { BMSearch };

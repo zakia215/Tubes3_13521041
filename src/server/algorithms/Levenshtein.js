@@ -58,3 +58,8 @@ function CompareString(str1, str2) {
 // console.log(CompareString(str1,str2))
 // console.log()
 // console.log(LevenshteinDistance(str1, str2))
+
+module.exports = {
+    LevenshteinDistance,
+    CompareString
+}
