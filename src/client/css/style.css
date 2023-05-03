@@ -66,6 +66,11 @@
     color: #9271A1;
 }
 
+.new-chat-button:hover {
+    width: 209px;
+    height: 45px;
+}
+
 .label {
     font-weight: 550;
     font-size: 15px;
