@@ -37,7 +37,7 @@ const deleteChat = asyncWrapper(async (req, res, next) => {
 const updateChat = asyncWrapper(async (req, res, next) => {
     const { id: chatID } = req.params;
     let newValue = req.body;
-    if ('question' in req.body) {
+    if ('question' in newValue) {
         const singleChat = await History.findOne({ _id: chatID });
         const qna = await QnA.find();
         const tempanswer = 'Who says Im gay?';
@@ -50,18 +50,20 @@ const updateChat = asyncWrapper(async (req, res, next) => {
         newValue = {
             questionList: localList
         }
+    } else if ('name' in newValue) {
+        const chat = await History.findOneAndUpdate({ _id: chatID }, newValue, {
+            new: true,
+            runValidators: true
+        });
+        if (!chat) {
+            return next(createCustomError(`No task with id: ${chatID}`, 404));
+        }
+        res.status(200).json({ chat });
+    } else {
+        return next(createCustomError(`Request not valid`, 404));
     }
 
-    const chat = await History.findOneAndUpdate({ _id: chatID }, newValue, {
-        new: true,
-        runValidators: true
-    });
 
-    if (!chat) {
-        return next(createCustomError(`No task with id: ${chatID}`, 404));
-    }
-
-    res.status(200).json({ chat });
 });
 
 module.exports = {
