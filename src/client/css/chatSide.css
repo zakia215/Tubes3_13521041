@@ -20,10 +20,15 @@
   /* visibility: hidden; */
   box-sizing: border-box;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .chat-form-container {
   display: flex;
+  box-shadow: 
+    0px 0px 10px 0px rgba(209, 191, 215, 0.9),
+    0px 0px 20px 0px rgba(209, 191, 215, 0.8),
+    0px 0px 30px 0px rgba(209, 191, 215, 0.8);
   /* padding: 10px 30px; */
   flex-shrink: 0;
   justify-content: center;
