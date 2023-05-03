@@ -14,6 +14,10 @@ const {
     isValidDate,
     getDay
 } = require('../algorithms/regex.js');
+const QnA = require('../models/qna.js');
+
+// Jangan lupa nanti di hapus
+const connectDB = require('../db/connect.js');
 
 function insert_descending(arr, obj) {
     let inserted = false;
@@ -26,6 +30,25 @@ function insert_descending(arr, obj) {
     }
     if (!inserted) {
         arr.push(obj);
+    }
+}
+
+const add_qna_to_database = async(newEntry) => {
+    try {
+        // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
+        const found = await QnA.findOne({ question})
+        const chat = await QnA.create(newEntry);
+        console.log(chat);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const delete_qna_from_database = async(questionRemoved) => {
+    try {
+        await QnA.findOneAndDelete({ question: questionRemoved });
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -54,11 +77,18 @@ function get_answer_string(question, question_db, is_kmp) {
                 answer_list.push("Format tanggal tidak sesuai");
             }
         } else if (has_math_prop) {
-            
+
         } else if (is_del_question) {
-
+            
         } else if (is_add_question) {
-
+            const newQuestion = is_add_question[1];
+            const newAnswer = is_add_question[2];
+            const newEntry = {
+                question: newQuestion,
+                answer: newAnswer
+            }
+            add_qna_to_database(newEntry);
+            
         } else {
             /**
              * {
@@ -165,5 +195,10 @@ const qna_db = [
     }
 ]
 
-const answer_list = get_answer_string("Fiesta yang dimaksud apa si?--28/02/2003", qna_db, true);
+connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
+const answer_list = get_answer_string("Tambah pertanyaan Warung deket sini gak ada? jawaban Ada tapi paling warung biru", qna_db, true);
 console.log(answer_list);
+// const to_add = {
+//     question: "Apa ibukota indonesia?",
+//     answer: "Jakarta"
+// }
