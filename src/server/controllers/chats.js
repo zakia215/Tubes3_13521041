@@ -50,6 +50,12 @@ const updateChat = asyncWrapper(async (req, res, next) => {
         newValue = {
             questionList: localList
         }
+
+        const chat = await History.findOneAndUpdate({ _id: chatID }, newValue, {
+            new: true,
+            runValidators: true
+        });
+        res.status(200).json({ chat });
     } else if ('name' in newValue) {
         const chat = await History.findOneAndUpdate({ _id: chatID }, newValue, {
             new: true,

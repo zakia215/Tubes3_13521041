@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 
 ChatSide.propTypes = {
   kmp: PropTypes.bool.isRequired,
+  chatId: PropTypes.string,
 };
 
 function ChatSide(props) {
@@ -16,7 +17,11 @@ function ChatSide(props) {
   const [chatQuestionList, setChatQuestionList] = useState([]); 
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/chat/64514a328eb52723406517d9')
+    console.log("keokdos")
+
+    if (props.chatId) {
+      console.log("lolo")
+      axios.get(`http://localhost:3000/api/chat/${props.chatId}`)
       .then(response => {
         setChatObject(response.data);
         console.log("qqq");
@@ -25,7 +30,8 @@ function ChatSide(props) {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+    }
+  }, [props.chatId]);
 
   useEffect(() => {
       if (chatObject.chat) {
@@ -81,13 +87,17 @@ function ChatSide(props) {
         {chatItemList}
       </div>
       
-      <div className="chat-form-container">
-        < MagicConchShellForm 
-          id="64514a328eb52723406517d9"
-          setChatObject={setChatObject}
-          kmp = {props.kmp}
-        />
-      </div>
+      {props.chatId ?
+        <div className="chat-form-container">
+          < MagicConchShellForm 
+            id={props.chatId}
+            setChatObject={setChatObject}
+            kmp = {props.kmp}
+          />
+        </div>
+        :
+        null
+      }
     </div>
   );
 }

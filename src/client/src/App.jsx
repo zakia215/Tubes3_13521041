@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/c/:chatId?" element={<Home />} />
         {/* <Route path="/c/:chatId" element={<Chat />} /> */}
         {/* <Route path="/signin" element={<SignIn />} /> */}
       </Routes>
