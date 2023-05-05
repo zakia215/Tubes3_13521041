@@ -10,7 +10,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/c/:chatId?" element={<Home />} />
+        {/* <Route exact path="/c/:chatId?" element={<Home />} /> */}
+        <Route path="/c/:chatId?" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
       </Routes>
     </>
   )
