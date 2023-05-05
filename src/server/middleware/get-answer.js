@@ -131,7 +131,7 @@ function get_answer_string(question, question_db, is_kmp) {
                         let [count1, count2] = CompareString(question_db[i].question, question_list[j]);
                         let LD = LevenshteinDistance(question_db[i].question, question_list[j]);
                         const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
-                        if (lev_value > 60) {
+                        if (lev_value > 70) {
                             const obj = {
                                 index: i,
                                 value: lev_value
@@ -154,7 +154,7 @@ function get_answer_string(question, question_db, is_kmp) {
                         let [count1, count2] = CompareString(question_db[i].question, question_list[j]);
                         let LD = LevenshteinDistance(question_db[i].question, question_list[j]);
                         const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
-                        if (lev_value > 60) {
+                        if (lev_value > 70) {
                             const obj = {
                                 index: i,
                                 value: lev_value
@@ -173,11 +173,12 @@ function get_answer_string(question, question_db, is_kmp) {
                     if (max > 90) {
                         answer_list.push(question_db[similarity[0].index].answer);
                     } else {
-                        let answer_string = "Pertanyaan tidak ditemukan di database.\nApakah maksud anda:\n"
+                        let answer_string = "Pertanyaan tidak ditemukan di database.<br>Apakah maksud anda:<br>";
+                        
                         const upperBound = Math.min(similarity.length, 3);
                         for (let i = 0; i < upperBound; i++) {
                             if (i != 0) {
-                                answer_string += "\n";
+                                answer_string += "<br>";
                             }
                             answer_string += (i + 1) + ". " + question_db[similarity[i].index].question;
                         }
@@ -195,9 +196,9 @@ function get_answer_string(question, question_db, is_kmp) {
     } else {
         for (let i = 0; i < answer_list.length; i++) {
             if (i != 0) {
-                answer_string += "\n\n";
+                answer_string += "<br><br>";
             }
-            answer_string += (i + 1) + ". " + question_list[i] + "\n\n";
+            answer_string += (i + 1) + ". " + question_list[i] + "<br><br>";
             answer_string += answer_list[i];
         }
     }
