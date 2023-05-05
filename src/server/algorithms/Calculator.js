@@ -179,3 +179,7 @@ for (let i = 0; i < pers3.length; i++){
     }
     // console.log()
 }
+
+module.exports = {
+  Calculator
+};
