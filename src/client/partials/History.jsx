@@ -13,6 +13,7 @@ History.propTypes = {
       id: PropTypes.string.isRequired, name: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
+  chatId: PropTypes.string,
 };
 
 function History(props) {
@@ -84,52 +85,99 @@ function History(props) {
     const inputValue = inputValues[chatTuple.id];
 
     return (
-      <div className="history-item-container" key={chatTuple.id}>
-        <div className="history-item" onClick={() => handleClick(chatTuple.id)}>
-          <div className="history-name-container">
-            <input
-              className="history-name"
-              type="text"
-              value={inputValue}
-              onChange={(event) => handleInputChange(chatTuple.id, event.target.value)}
-              disabled={!isEditMode}
-              style={isEditMode ? {border: '1px solid #fff', backgroundColor: '#9271A1'} : {}}
-            />
-          </div>
-          {isEditMode ? (
-              <img
-                className="history-button"
-                src="/checkmark.png"
-                alt="Save"
-                onClick={() => handleSave(chatTuple.id)}
-              />  
-            ) : (
-              <img
-                className="history-button"
-                src="/edit.png"
-                alt="Edit"
-                onClick={() => handleEdit(chatTuple.id)}
-              />  
-          )}
-
-          {isEditMode ? (
-              <img
-              className="history-button"
-              src="/close.png"
-              alt="Cancel"
-              onClick={() => handleCancel(chatTuple.id)}
+      chatTuple.id == props.chatId ? 
+        <div className="history-item-container-current" key={chatTuple.id}>
+            <div className="history-item" onClick={() => handleClick(chatTuple.id)}>
+            <div className="history-name-container">
+              <input
+                className="history-name"
+                type="text"
+                value={inputValue}
+                onChange={(event) => handleInputChange(chatTuple.id, event.target.value)}
+                disabled={!isEditMode}
+                style={isEditMode ? {border: '1px solid #fff', backgroundColor: '#9271A1'} : {}}
               />
+            </div>
+            {isEditMode ? (
+                <img
+                  className="history-button"
+                  src="/checkmark.png"
+                  alt="Save"
+                  onClick={() => handleSave(chatTuple.id)}
+                />  
               ) : (
-              <img
+                <img
+                  className="history-button"
+                  src="/edit.png"
+                  alt="Edit"
+                  onClick={() => handleEdit(chatTuple.id)}
+                />  
+            )}
+
+            {isEditMode ? (
+                <img
                 className="history-button"
-                src="/trash.png"
-                alt="Delete"
-                onClick={() => handleDelete(chatTuple.id)}
-              />
-          )}
+                src="/close.png"
+                alt="Cancel"
+                onClick={() => handleCancel(chatTuple.id)}
+                />
+                ) : (
+                <img
+                  className="history-button"
+                  src="/trash.png"
+                  alt="Delete"
+                  onClick={() => handleDelete(chatTuple.id)}
+                />
+            )}
+          </div>
         </div>
-      </div>
-    );
+          :
+        <div className="history-item-container" key={chatTuple.id}>
+            <div className="history-item" onClick={() => handleClick(chatTuple.id)}>
+            <div className="history-name-container">
+              <input
+                className="history-name"
+                type="text"
+                value={inputValue}
+                onChange={(event) => handleInputChange(chatTuple.id, event.target.value)}
+                disabled={!isEditMode}
+                style={isEditMode ? {border: '1px solid #fff', backgroundColor: '#9271A1'} : {}}
+              />
+            </div>
+            {isEditMode ? (
+                <img
+                  className="history-button"
+                  src="/checkmark.png"
+                  alt="Save"
+                  onClick={() => handleSave(chatTuple.id)}
+                />  
+              ) : (
+                <img
+                  className="history-button"
+                  src="/edit.png"
+                  alt="Edit"
+                  onClick={() => handleEdit(chatTuple.id)}
+                />  
+            )}
+
+            {isEditMode ? (
+                <img
+                className="history-button"
+                src="/close.png"
+                alt="Cancel"
+                onClick={() => handleCancel(chatTuple.id)}
+                />
+                ) : (
+                <img
+                  className="history-button"
+                  src="/trash.png"
+                  alt="Delete"
+                  onClick={() => handleDelete(chatTuple.id)}
+                />
+            )}
+          </div>
+        </div>
+    )    
   });
 
   historyNameList = [...historyNameList].reverse();

@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <div className="screen-wrapper">
-      <SideBar setKmp = {setKmp}/>
+      <SideBar setKmp = {setKmp} chatId={chatId}/>
       
       <ChatSide kmp = {kmp} chatId={chatId}/>
     </div>
