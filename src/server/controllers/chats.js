@@ -1,6 +1,7 @@
 const History = require('../models/history');
 const QnA = require('../models/qna');
 const asyncWrapper = require('../middleware/async');
+const { get_answer_string } = require('../middleware/get-answer');
 const { createCustomError } = require('../errors/custom-error');
 
 const getAllChat = asyncWrapper(async (req, res) => {
@@ -40,7 +41,7 @@ const updateChat = asyncWrapper(async (req, res, next) => {
     if ('question' in newValue) {
         const singleChat = await History.findOne({ _id: chatID });
         const qna = await QnA.find();
-        const tempanswer = 'Who says Im gay?';
+        const tempanswer = get_answer_string(req.body.question, qna, req.body.kmp);
         const tupleToAdd = {
             question: req.body.question,
             answer: tempanswer

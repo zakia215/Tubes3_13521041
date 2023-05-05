@@ -33,22 +33,32 @@ function insert_descending(arr, obj) {
     }
 }
 
-const add_qna_to_database = async(newEntry) => {
+const add_qna_to_database = async (newEntry) => {
     try {
         // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
-        const found = await QnA.findOne({ question})
+        const found = await QnA.findOne({ question: { $regex: newEntry.question, $options: 'i' } })
+        if (found) {
+            return false;
+        }
         const chat = await QnA.create(newEntry);
         console.log(chat);
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 }
 
-const delete_qna_from_database = async(questionRemoved) => {
+const delete_qna_from_database = async (questionRemoved) => {
     try {
-        await QnA.findOneAndDelete({ question: questionRemoved });
+        const found = await QnA.findOneAndDelete({ question: { $regex: questionRemoved, $options: 'i' } });
+        if (!found) {
+            return false;
+        }
+        return true;
     } catch (error) {
         console.log(error);
+        return false;
     }
 }
 
@@ -62,9 +72,9 @@ function get_answer_string(question, question_db, is_kmp) {
     for (let i = 0; i < question_list.length; i++) {
         question_list[i] = question_list[i].trim();
     }
-    
+
     let answer_list = [];
-    
+
     for (let j = 0; j < question_list.length; j++) {
         const is_date = question_list[j].match(date);
         const has_math_prop = question_list[j].match(hasMathProperties);
@@ -77,9 +87,16 @@ function get_answer_string(question, question_db, is_kmp) {
                 answer_list.push("Format tanggal tidak sesuai");
             }
         } else if (has_math_prop) {
-
+            answer_list.push("Fitur kalkulator masih diperbaiki");
         } else if (is_del_question) {
-            
+            const question = is_del_question[1];
+            const success = delete_qna_from_database(question);
+            if (success) {
+                answer_list.push("Pertanyaan telah dihapus dari database");
+            } else {
+                answer_list.push("Pertanyaan gagal dihapus dari database");
+            }
+
         } else if (is_add_question) {
             const newQuestion = is_add_question[1];
             const newAnswer = is_add_question[2];
@@ -87,8 +104,13 @@ function get_answer_string(question, question_db, is_kmp) {
                 question: newQuestion,
                 answer: newAnswer
             }
-            add_qna_to_database(newEntry);
-            
+            const success = add_qna_to_database(newEntry);
+            if (success) {
+                answer_list.push("Berhasil menambahkan pertanyaan ke dalam database");
+            } else {
+                answer_list.push("Pertanyaan gagal dimasukkan di dalam database")
+            }
+
         } else {
             /**
              * {
@@ -156,7 +178,10 @@ function get_answer_string(question, question_db, is_kmp) {
                         let answer_string = "Pertanyaan tidak ditemukan di database.\nApakah maksud anda:\n"
                         const upperBound = Math.min(similarity.length, 3);
                         for (let i = 0; i < upperBound; i++) {
-                            answer_string += (i + 1) + ". " + question_db[similarity[i].index].question + "\n";
+                            if (i != 0) {
+                                answer_string += "\n";
+                            }
+                            answer_string += (i + 1) + ". " + question_db[similarity[i].index].question;
                         }
                         answer_list.push(answer_string);
                     }
@@ -165,7 +190,19 @@ function get_answer_string(question, question_db, is_kmp) {
         }
     }
 
-    return answer_list;
+    let answer_string = "";
+
+    if (answer_list.length() == 1) {
+        answer_string += answer_list[0];
+    } else {
+        for (let i = 0; i < answer_list.length(); i++) {
+            if (i != 0) {
+                answer_string += "\n";
+            }
+            answer_string += answer_list[i];
+        }
+    }
+    return answer_string;
 }
 
 const qna_db = [
@@ -195,10 +232,14 @@ const qna_db = [
     }
 ]
 
-connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
-const answer_list = get_answer_string("Tambah pertanyaan Warung deket sini gak ada? jawaban Ada tapi paling warung biru", qna_db, true);
-console.log(answer_list);
+// connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
+// const answer_list = get_answer_string("hapus pertanyaan apa hayooo?? dari database", qna_db, true);
+// console.log(answer_list);
 // const to_add = {
 //     question: "Apa ibukota indonesia?",
 //     answer: "Jakarta"
 // }
+
+module.exports = {
+    get_answer_string
+}
