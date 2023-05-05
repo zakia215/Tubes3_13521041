@@ -32,6 +32,7 @@ function History(props) {
     .catch(error => {
       console.log(error);
     });
+    navigate("/c/");
   }
 
   const [editMode, setEditMode] = useState({});
