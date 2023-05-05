@@ -91,16 +91,14 @@ function get_answer_string(question, question_db, is_kmp) {
                 try {
                     const result = calculator.evaluate(has_math_prop[0]);
                     // console.log(`Result: ${result}`);
-                    answer_list.push(`Hasil dari persamaan tersebut adalah ${result}`);
-                } catch (error) {
-                    if (error === "NaN") {
-                        let errorr = 'Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.';
-                        // console.log(`Error: ${errorr}`);
-                        answer_list.push(errorr);
+                    if (Number.isNaN(result)) {
+                        answer_list.push('Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.')
                     } else {
-                        // console.log(`Error: ${error.message}`);
-                        answer_list.push(error.message);
+                        answer_list.push(`Hasil dari persamaan tersebut adalah ${result}`);
                     }
+                } catch (error) {
+                    // console.log(`Error: ${error.message}`);
+                    answer_list.push(error.message);
                 }
             } else {
                 let ansCalStr = `Dari pertanyaan yang diberikan, terdapat ${has_math_prop.length} persamaan. Berikut adalah hasilnya\n` 
