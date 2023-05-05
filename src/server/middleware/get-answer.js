@@ -107,15 +107,16 @@ function get_answer_string(question, question_db, is_kmp) {
                         const result = calculator.evaluate(has_math_prop[i]);
                         // console.log(`Result: ${result}`);
                         if (Number.isNaN(result)) {
-                            answer_list.push('Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.')
+                            ansCalStr += `${i}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.\n`;
                         } else {
-                            answer_list.push(`Hasil dari persamaan tersebut adalah ${result}`);
+                            ansCalStr += `${i}. Hasil dari persamaan tersebut adalah ${result}\n`;
                         }
                     } catch (error) {
                         // console.log(`Error: ${error.message}`);
-                        answer_list.push(error.message);
+                        ansCalStr += `${error.message}\n`;
                     }
                 }
+                answer_list.push(ansCalStr);
             }
         } else if (is_del_question) {
             const question = is_del_question[1];
