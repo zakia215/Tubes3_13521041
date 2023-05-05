@@ -35,7 +35,6 @@
     justify-content: space-around;
     height: 125px;
     width: 230px;
-    /* border-top: 1px solid #F4F1F9; */
     background-color: #9271A1;
     padding: 10px;
     flex-shrink: 0;
@@ -44,16 +43,13 @@
 
 
 .new-chat-container {
-    /* position: absolute; */
     display: flex;
     align-items: center;
     height: 81px;
     width: 230px;
-    /* border-top: 1px solid #F4F1F9; */
     padding: 10px;
     flex-shrink: 0;
     justify-content: center;
-    /* background: #9271A1; */
 }
 
 .new-chat-button {

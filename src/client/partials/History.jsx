@@ -19,9 +19,8 @@ function History(props) {
   // fetch to api/chat
   const navigate = useNavigate();
   const handleDelete = (id) => {
-    console.log("delete");
     console.log(id);
-    axios.delete(`http://localhost:3000/api/chat/${id}`)
+    axios.delete(`https://tubes313521041-production.up.railway.app/api/chat/${id}`)
     .then(response => {
       console.log(response);
       const updatedChatNameList = props.chatNameList.filter(
@@ -65,7 +64,7 @@ function History(props) {
       return;
     }
   
-    axios.patch(`http://localhost:3000/api/chat/${id}`, { name: inputValues[id] })
+    axios.patch(`https://tubes313521041-production.up.railway.app/api/chat/${id}`, { name: inputValues[id] })
       .then(response => {
         const updatedChatNameList = props.chatNameList.map(chat => chat.id === id ? { ...chat, name: inputValues[id] } : chat);
         props.setChatNameList(updatedChatNameList);
