@@ -178,6 +178,9 @@ function get_answer_string(question, question_db, is_kmp) {
                         for (let i = 0; i < upperBound; i++) {
                             if (i != 0) {
                                 answer_string += "\n";
+                                if (question_list.length > 1) {
+                                    answer_string += "\t";
+                                }
                             }
                             answer_string += (i + 1) + ". " + question_db[similarity[i].index].question;
                         }
@@ -190,13 +193,14 @@ function get_answer_string(question, question_db, is_kmp) {
 
     let answer_string = "";
 
-    if (answer_list.length) {
+    if (answer_list.length == 1) {
         answer_string += answer_list[0];
     } else {
         for (let i = 0; i < answer_list.length; i++) {
             if (i != 0) {
                 answer_string += "\n";
             }
+            answer_string += (i + 1) + ". " + question_list[i] + "\n\n";
             answer_string += answer_list[i];
         }
     }
