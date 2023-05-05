@@ -5,7 +5,7 @@ const del_question = /^hapus pertanyaan (.+) dari.* database$/i;
 const add_question = /^tambah pertanyaan (.+) jawaban (.+)$/i;
 
 function hasMathProperties(string) {
-    const mathProperties = /([\s\d-.+/*^()])+/ig
+    const mathProperties = /((\d+(\.\d+)?)||[\s-+/*^()])+/ig
     const matches = string.match(mathProperties);
     const result = []
     for (let match of matches) {
@@ -73,9 +73,10 @@ function getDay(validDate) {
 //     console.log("String tidak cocok dengan regex.");
 // }
 
-const string = "hasil dari 2.5 ^ (3.5-5.5) dan hasil dari 5 + 7";
-const mathResult = hasMathProperties(string);
-console.log(mathResult);
+// const string = "hasil dari 2.5 ^ (3.5-5.5) dan hasil dari 5 + 7";
+// const noMatch = "Ini harusnya gak match.";
+// const mathResult = hasMathProperties(noMatch);
+// console.log(mathResult);
 // console.log(eval('5 * 8 - 10 + - + / 3'));
 
 module.exports = {
