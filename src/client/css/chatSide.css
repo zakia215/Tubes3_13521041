@@ -1,0 +1,123 @@
+.chat-side-container {
+  min-width: 750px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  background-color: #D1BFD7;
+  flex-grow: 1;
+  justify-content: flex-end;
+  overflow-x: auto;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.chat-form-container {
+  display: flex;
+  box-shadow: 
+    0px 0px 10px 0px rgba(209, 191, 215, 0.9),
+    0px 0px 20px 0px rgba(209, 191, 215, 0.8),
+    0px 0px 30px 0px rgba(209, 191, 215, 0.8);
+  /* padding: 10px 30px; */
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  min-height: 112px;
+}
+
+.chat-item {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.chat-content {
+  width: 70%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.profile-picture {
+  width: 4em;
+  height: 4em;
+}
+
+.chat-content {
+  background-color: #F4F1F9;
+  color: #000000;
+  border-radius: 15px;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.form-container {
+  height: 1.3em;
+  width: 702.44px;
+  margin: 10px 20px;
+  background-color: #F4F1F9;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 30px;
+  /* box-shadow: 0 5px 25px #000; */
+}
+
+.form-container textarea{
+  outline: none;
+  border: none;
+  resize: none;
+  background: transparent;
+  color: #000000;
+  overflow-y: auto;
+}
+
+textarea::placeholder {
+  color: #9271A1;
+}  
+
+img {
+  flex-shrink: 0;
+  width: 4em;
+  height: 4em;
+}
+
+textarea {
+  height: inherit;
+  font-family: inherit;
+  flex-grow: 1;
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  overflow-y: auto;
+}
+
+.search {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0;
+}
+
+textarea:hover::-webkit-scrollbar {
+  width: 5px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #D1BFD7;
+  border-radius: 5px;
+}

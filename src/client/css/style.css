@@ -1,0 +1,83 @@
+/* Untuk ukuran layar yang lebih besar atau sama dengan 768px */
+@media screen and (min-width: 768px) {    
+    .title {
+      padding-top: 10px;
+      padding-bottom: 16px;
+    }
+
+    .main-wrapper {
+      display: flex;
+    }
+}
+
+.screen-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: row;
+}
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    height: 100vh;
+    top: 0;
+    background-color: #A689B0;
+    color:#F4F1F9;
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.selected-algorithm-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 125px;
+    width: 230px;
+    background-color: #9271A1;
+    padding: 10px;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+
+.new-chat-container {
+    display: flex;
+    align-items: center;
+    height: 81px;
+    width: 230px;
+    padding: 10px;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.new-chat-button {
+    width: 205px;
+    height: 41px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    background-color: #F4F1F9;
+    color: #9271A1;
+}
+
+.new-chat-button:hover {
+    width: 209px;
+    height: 45px;
+}
+
+.label {
+    font-weight: 550;
+    font-size: 15px;
+}
+
+#selected-algorithm {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* input[type="radio"]:checked {
+    background-color: green;
+    color: blue;
+} */

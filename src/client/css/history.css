@@ -1,0 +1,120 @@
+.chat-history-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.history-title {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #d1bfd7;
+    box-sizing: border-box;
+}
+
+.history-container-wrapper {
+    padding-right: 5px;
+    /* flex-grow: 1; */
+}
+
+.history-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 247px);
+    justify-content: flex-start;
+    color: #F4F1F9;
+    overflow-y: auto;
+}
+
+/* ::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #F4F1F9;
+    border-radius: 10px;
+} */
+
+/* default style untuk scrollbar */
+/* .history-container::-webkit-scrollbar {
+  width: 8px;
+} */
+
+.history-container::-webkit-scrollbar-thumb {
+  background-color: #F4F1F9;
+  border-radius: 4px;
+}
+
+/* menghilangkan scrollbar saat tidak dihover */
+.history-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+.history-container:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-item {
+  height: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-item-container {
+  height: 59px;
+  flex-shrink: 0;
+}
+
+.history-item-container:hover {
+  background-color: #BDA3C580;
+  border-radius: 10px;
+  margin: 0px 5px;
+}
+
+.history-item-container-current {
+  height: 59px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  margin: 0px 5px;
+  background-color: #BDA3C5;
+}
+
+.history-name-container {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  /* margin-right: 10px; */
+  /* text-overflow: ellipsis; */
+  /* flex-grow: 1; */
+  width: 80%;
+}
+
+.history-button {
+  margin: 5px;
+  flex-shrink: 0;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.history-name {
+  text-overflow: ellipsis;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: #F4F1F9;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  margin-left: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
