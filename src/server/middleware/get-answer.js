@@ -173,12 +173,12 @@ function get_answer_string(question, question_db, is_kmp) {
                     if (max > 90) {
                         answer_list.push(question_db[similarity[0].index].answer);
                     } else {
-                        let answer_string = "Pertanyaan tidak ditemukan di database.<br>Apakah maksud anda:<br>";
+                        let answer_string = "Pertanyaan tidak ditemukan di database.\nApakah maksud anda:\n";
                         
                         const upperBound = Math.min(similarity.length, 3);
                         for (let i = 0; i < upperBound; i++) {
                             if (i != 0) {
-                                answer_string += "<br>";
+                                answer_string += "\n";
                             }
                             answer_string += (i + 1) + ". " + question_db[similarity[i].index].question;
                         }
@@ -196,9 +196,9 @@ function get_answer_string(question, question_db, is_kmp) {
     } else {
         for (let i = 0; i < answer_list.length; i++) {
             if (i != 0) {
-                answer_string += "<br><br>";
+                answer_string += "\n\n";
             }
-            answer_string += (i + 1) + ". " + question_list[i] + "<br><br>";
+            answer_string += (i + 1) + ". " + question_list[i] + "\n\n";
             answer_string += answer_list[i];
         }
     }
