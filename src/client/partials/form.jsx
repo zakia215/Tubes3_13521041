@@ -49,7 +49,7 @@ function MagicConchShellForm(props) {
         onChange={handleChange}
         onKeyDown={handleKeyPress}
       />
-      <img className="search" src="../public/shell.png" alt="Submit" onClick={handleSubmit} />
+      <img className="search" src="/shell.png" alt="Submit" onClick={handleSubmit} />
     </div>
 );
 }
