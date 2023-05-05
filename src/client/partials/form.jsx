@@ -36,7 +36,7 @@ function MagicConchShellForm(props) {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
       handleSubmit(e);
     }
   }
