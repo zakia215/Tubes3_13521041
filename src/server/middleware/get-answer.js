@@ -1,4 +1,5 @@
 // 3 * 5
+import { Calculator } from './calculator.js';
 const { BMSearch } = require('../algorithms/boyer_moore.js');
 const { KMPSearch } = require('../algorithms/kmp.js');
 const {
@@ -75,7 +76,7 @@ function get_answer_string(question, question_db, is_kmp) {
 
     for (let j = 0; j < question_list.length; j++) {
         const is_date = question_list[j].match(date);
-        const has_math_prop = question_list[j].match(hasMathProperties);
+        const has_math_prop = hasMathProperties(question_list[j]);
         const is_del_question = question_list[j].match(del_question);
         const is_add_question = question_list[j].match(add_question);
         if (is_date) {
@@ -85,7 +86,41 @@ function get_answer_string(question, question_db, is_kmp) {
                 answer_list.push("Format tanggal tidak sesuai");
             }
         } else if (has_math_prop) {
-            answer_list.push("Fitur kalkulator masih diperbaiki");
+            const calculator = new Calculator();
+            if (has_math_prop.length === 1) {
+                try {
+                    const result = calculator.evaluate(has_math_prop[0]);
+                    // console.log(`Result: ${result}`);
+                    answer_list.push(`Hasil dari persamaan tersebut adalah ${result}`);
+                } catch (error) {
+                    if (error === "NaN") {
+                        let errorr = 'Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.';
+                        // console.log(`Error: ${errorr}`);
+                        answer_list.push(errorr);
+                    } else {
+                        // console.log(`Error: ${error.message}`);
+                        answer_list.push(error.message);
+                    }
+                }
+            } else {
+                let ansCalStr = `Dari pertanyaan yang diberikan, terdapat ${has_math_prop.length} persamaan. Berikut adalah hasilnya\n` 
+                for (let i = 0; i < has_math_prop.length; i++) {
+                    try {
+                        const result = calculator.evaluate(has_math_prop[i]);
+                        // console.log(`Result: ${result}`);
+                        answer_list.push(`${i}. ${result}`);
+                    } catch (error) {
+                        if (error === "NaN") {
+                            let errorr = 'Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.';
+                            // console.log(`Error: ${errorr}`);
+                            answer_list.push(`${i}. ${errorr}`);
+                        } else {
+                            // console.log(`Error: ${error.message}`);
+                            answer_list.push(`${i}. ${error.message}`);
+                        }
+                    }
+                }
+            }
         } else if (is_del_question) {
             const question = is_del_question[1];
             const success = delete_qna_from_database(question);
