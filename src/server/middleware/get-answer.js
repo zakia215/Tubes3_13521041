@@ -16,8 +16,6 @@ const {
 } = require('../algorithms/regex.js');
 const QnA = require('../models/qna.js');
 
-// Jangan lupa nanti di hapus
-const connectDB = require('../db/connect.js');
 
 function insert_descending(arr, obj) {
     let inserted = false;
@@ -192,10 +190,10 @@ function get_answer_string(question, question_db, is_kmp) {
 
     let answer_string = "";
 
-    if (answer_list.length() == 1) {
+    if (answer_list.length) {
         answer_string += answer_list[0];
     } else {
-        for (let i = 0; i < answer_list.length(); i++) {
+        for (let i = 0; i < answer_list.length; i++) {
             if (i != 0) {
                 answer_string += "\n";
             }
@@ -205,32 +203,32 @@ function get_answer_string(question, question_db, is_kmp) {
     return answer_string;
 }
 
-const qna_db = [
-    {
-        question: "Apa ibukota indonesia?",
-        answer: "Jakarta"
-    },
-    {
-        question: "Why are you gay?",
-        answer: "Who says I'm gay?"
-    },
-    {
-        question: "Siapa wakil presiden indonesia?",
-        answer: "Ibumu"
-    },
-    {
-        question: "What is it all about?",
-        answer: "It's about drive it's about power"
-    },
-    {
-        question: "Aku dari mana?",
-        answer: "Tegal"
-    },
-    {
-        question: "Fee Fi fo fum?",
-        answer: "Jakarta"
-    }
-]
+// const qna_db = [
+//     {
+//         question: "Apa ibukota indonesia?",
+//         answer: "Jakarta"
+//     },
+//     {
+//         question: "Why are you gay?",
+//         answer: "Who says I'm gay?"
+//     },
+//     {
+//         question: "Siapa wakil presiden indonesia?",
+//         answer: "Ibumu"
+//     },
+//     {
+//         question: "What is it all about?",
+//         answer: "It's about drive it's about power"
+//     },
+//     {
+//         question: "Aku dari mana?",
+//         answer: "Tegal"
+//     },
+//     {
+//         question: "Fee Fi fo fum?",
+//         answer: "Jakarta"
+//     }
+// ]
 
 // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
 // const answer_list = get_answer_string("hapus pertanyaan apa hayooo?? dari database", qna_db, true);
