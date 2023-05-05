@@ -85,7 +85,7 @@ function get_answer_string(question, question_db, is_kmp) {
             } else {
                 answer_list.push("Format tanggal tidak sesuai");
             }
-        } else if (has_math_prop) {
+        } else if (has_math_prop.length != 0) {
             const calculator = new Calculator();
             if (has_math_prop.length === 1) {
                 try {
@@ -240,36 +240,36 @@ function get_answer_string(question, question_db, is_kmp) {
     return answer_string;
 }
 
-// const qna_db = [
-//     {
-//         question: "Apa ibukota indonesia?",
-//         answer: "Jakarta"
-//     },
-//     {
-//         question: "Why are you gay?",
-//         answer: "Who says I'm gay?"
-//     },
-//     {
-//         question: "Siapa wakil presiden indonesia?",
-//         answer: "Ibumu"
-//     },
-//     {
-//         question: "What is it all about?",
-//         answer: "It's about drive it's about power"
-//     },
-//     {
-//         question: "Aku dari mana?",
-//         answer: "Tegal"
-//     },
-//     {
-//         question: "Fee Fi fo fum?",
-//         answer: "Jakarta"
-//     }
-// ]
+const qna_db = [
+    {
+        question: "Apa ibukota indonesia?",
+        answer: "Jakarta"
+    },
+    {
+        question: "Why are you gay?",
+        answer: "Who says I'm gay?"
+    },
+    {
+        question: "Siapa wakil presiden indonesia?",
+        answer: "Ibumu"
+    },
+    {
+        question: "What is it all about?",
+        answer: "It's about drive it's about power"
+    },
+    {
+        question: "Aku dari mana?",
+        answer: "Tegal"
+    },
+    {
+        question: "Fee Fi fo fum?",
+        answer: "Jakarta"
+    }
+]
 
 // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
-// const answer_list = get_answer_string("hapus pertanyaan apa hayooo?? dari database", qna_db, true);
-// console.log(answer_list);
+const answer_list = get_answer_string("tambah pertanyaan fiesta dengan jawaban chicken nugget", qna_db, true);
+console.log(answer_list);
 // const to_add = {
 //     question: "Apa ibukota indonesia?",
 //     answer: "Jakarta"
