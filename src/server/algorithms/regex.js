@@ -1,5 +1,4 @@
 // tinggal .match() kalo mau coockin
-const operations = /^(\s*\d+(\.\d+)?\s*([-+*/]\s*\d+(\.\d+)?\s*)*\s*)+&/ig
 const date = /(0?[1-9]|[1-2][0-9]|3[0-1])\/(0?[1-9]|1[0-2])\/\d{4}/g
 const del_question = /^hapus pertanyaan (.+) dari.* database$/i;
 const add_question = /^tambah pertanyaan (.+) jawaban (.+)$/i;
@@ -80,7 +79,6 @@ function getDay(validDate) {
 // console.log(eval('5 * 8 - 10 + - + / 3'));
 
 module.exports = {
-    operations,
     date,
     del_question,
     add_question,
