@@ -4,6 +4,7 @@ import History from './History';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 SideBar.propTypes = {
   setKmp: PropTypes.func.isRequired,
@@ -11,9 +12,9 @@ SideBar.propTypes = {
 
 function SideBar(props) {
   const [algorithm, setAlgorithm] = useState('KMP');
-  const [isLoading, setIsLoading] = useState(false); // tambahkan state untuk menunjukkan apakah permintaan GET sedang berlangsung
   const [chatsObject, setChatsObject] = useState([]); 
   const [chatNameList, setChatNameList] = useState([]); 
+  const navigate = useNavigate();
 
   const handleAlgorithmChange = (event) => {
     setAlgorithm(event.target.value);
@@ -21,32 +22,24 @@ function SideBar(props) {
   };
 
   const handleNewChatClick = () => {
-    console.log("ooo");
-    setIsLoading(true);
-    axios.post('http://localhost:3000/api/chat', {
+    axios.post('https://tubes313521041-production.up.railway.app/api/chat', {
       name: 'New Chat'
     })
-    .then(response => {
-      setChatsObject(response.data);
+    .then(response => {      setChatsObject(response.data);
       console.log(response);
-      setIsLoading(false);
-      // setChatNameList(response.data.chat.push(chat => ({id: chat._id, name: chat.name})));
       setChatNameList(prevState => [...prevState, {id: response.data.chat._id, name: response.data.chat.name}]);
+      navigate(`/c/${response.data.chat._id}`);
     })
     .catch(error => {
       console.log(error);
-      setIsLoading(false);
     });
   }
   
   useEffect(() => {
-    axios.get('http://localhost:3000/api/chat')
+    axios.get('https://tubes313521041-production.up.railway.app/api/chat')
         .then(response => {
             setChatsObject(response.data);
-            console.log("ppp");
             console.log(response.data);
-            // setChatNameList(chatsObject.chats.map(chat => chat.name));
-            // setChatNameList(chatsObject.chats.map(chat => ({id: chat._id, name: chat.name})));
         })
         .catch(error => {
             console.log(error);
@@ -55,7 +48,6 @@ function SideBar(props) {
 
   useEffect(() => {
     if (chatsObject.chats) {
-      // setChatNameList(chatsObject.chats.map(chat => chat.name));
       setChatNameList(chatsObject.chats.map(chat => ({id: chat._id, name: chat.name})));
     }
   }, [chatsObject]);

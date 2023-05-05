@@ -50,22 +50,15 @@
 
 /* menghilangkan scrollbar saat tidak dihover */
 .history-container::-webkit-scrollbar {
-  width: 0;
+  width: 0px;
 }
 
 .history-container:hover::-webkit-scrollbar {
   width: 8px;
 }
 
-/* .history-container:hover::-webkit-scrollbar-thumb {
-  background-color: #F4F1F9;
-  border-radius: 4px;
-} */
-
 .history-item-container {
   height: 59px;
-  /* flex-grow: 1; */
-  /* padding: 19px 10px; */
   flex-shrink: 0;
 }
 

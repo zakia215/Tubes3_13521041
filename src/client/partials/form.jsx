@@ -13,15 +13,14 @@ function MagicConchShellForm(props) {
   const [inputText, setInputText] = useState('');
 
   const handleSubmit = (e) => {
-    // console.log("AAA")
+    setInputText("");
     console.log(props.id);
     e.preventDefault();
-    axios.patch(`http://localhost:3000/api/chat/${props.id}`, {
+    axios.patch(`https://tubes313521041-production.up.railway.app/api/chat/${props.id}`, {
       question: inputText,
       kmp: props.kmp
     })
     .then((response) => {
-      console.log("loo")
       props.setChatObject(response.data);
       console.log(response.data);
     })
@@ -36,12 +35,19 @@ function MagicConchShellForm(props) {
     setInputText(e.target.value);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  }
+
   return (
     <div className="form-container">
       <textarea
         placeholder="Ask the magic conch shell..."
         value={inputText}
         onChange={handleChange}
+        onKeyDown={handleKeyPress}
       />
       <img className="search" src="../public/shell.png" alt="Submit" onClick={handleSubmit} />
     </div>

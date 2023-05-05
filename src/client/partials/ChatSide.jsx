@@ -17,14 +17,10 @@ function ChatSide(props) {
   const [chatQuestionList, setChatQuestionList] = useState([]); 
 
   useEffect(() => {
-    console.log("keokdos")
-
     if (props.chatId) {
-      console.log("lolo")
-      axios.get(`http://localhost:3000/api/chat/${props.chatId}`)
+      axios.get(`https://tubes313521041-production.up.railway.app/api/chat/${props.chatId}`)
       .then(response => {
         setChatObject(response.data);
-        console.log("qqq");
         console.log(response.data);
       })
       .catch(error => {
@@ -52,9 +48,6 @@ function ChatSide(props) {
       chatContainerRef.current.clientHeight;
   }, [chatList]);
 
-  // let chatList = ["Chat 1","Chat 2","Chat 3","Chat 4","Chat 5","Chat 6","Chat 7","Chat 8","Chat 9"];
-  // let chatList = ["Chat 1","Chat 2","Chat 3"];
-
   let chatItemList = [];
 
   chatList.map((chat, index) => {
@@ -62,7 +55,7 @@ function ChatSide(props) {
       <div className="chat-item" key={index}>
         <div className="profile-picture"> 
           <img 
-              src="../public/shell.png" 
+              src="/shell.png" 
               alt="magic conch shell" 
               style={{visibility: index % 2 === 1 ? 'visible' : 'hidden' }} 
             />
@@ -72,7 +65,7 @@ function ChatSide(props) {
         </div>
         <div className="profile-picture"> 
           <img 
-            src="../public/person.png" 
+            src="/person.png" 
             alt="magic conch shell" 
             style={{borderRadius: '5px', visibility: index % 2 === 1 ? 'hidden' : 'visible' }} 
           />
