@@ -110,7 +110,7 @@ function get_answer_string(question, question_db, is_kmp) {
                         // console.log(`Result: ${result}`);
                         answer_list.push(`${i}. ${result}`);
                     } catch (error) {
-                        if (error === NaN) {
+                        if (error.message === NaN) {
                             let errorr = 'Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.';
                             // console.log(`Error: ${errorr}`);
                             answer_list.push(`${i}. ${errorr}`);
