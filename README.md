@@ -15,6 +15,12 @@
 
 ## Setup Program
 - Pastikan di komputer Anda telah terinstall Node JS
+- Clone repositori ini ke directory yang diinginkan dengan command 
+  ```
+  cd /{direktori-yang-diinginkan}
+  git clone 'https://github.com/zakia215/Tubes3_13521041.git'
+  ```
+- Pindah direktori ke folder hasil clone repositori
 
 ## Cara Menjalankan Program
 - Cara menjalankan Backend program:
