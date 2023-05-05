@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 import MagicConchShellForm from './form'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 ChatSide.propTypes = {
   kmp: PropTypes.bool.isRequired,
@@ -61,7 +62,10 @@ function ChatSide(props) {
             />
         </div>
         <div className="chat-content">
-          {chat}
+            {chat.split('\n').map((line, index) => {
+              return <React.Fragment key={index}>{line}<br/></React.Fragment>;
+            })}
+
         </div>
         <div className="profile-picture"> 
           <img 
