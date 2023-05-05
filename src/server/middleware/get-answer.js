@@ -107,13 +107,13 @@ function get_answer_string(question, question_db, is_kmp) {
                         const result = calculator.evaluate(has_math_prop[i]);
                         // console.log(`Result: ${result}`);
                         if (Number.isNaN(result)) {
-                            ansCalStr += `${i}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.\n`;
+                            ansCalStr += `${i+1}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.\n`;
                         } else {
-                            ansCalStr += `${i}. Hasil dari persamaan tersebut adalah ${result}\n`;
+                            ansCalStr += `${i+1}. Hasil dari persamaan tersebut adalah ${result}\n`;
                         }
                     } catch (error) {
                         // console.log(`Error: ${error.message}`);
-                        ansCalStr += `${error.message}\n`;
+                        ansCalStr += `${i+1}. ${error.message}\n`;
                     }
                 }
                 answer_list.push(ansCalStr);
