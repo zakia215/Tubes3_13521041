@@ -216,7 +216,7 @@ function get_answer_string(question, question_db, is_kmp) {
                         let [count1, count2] = CompareString(question_db[i].question, is_add_question[1]);
                         let LD = LevenshteinDistance(question_db[i].question, is_add_question[1]);
                         const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
-                        if (lev_value > 70) {
+                        if (lev_value > 75) {
                             const obj = {
                                 index: i,
                                 value: lev_value
