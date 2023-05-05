@@ -198,7 +198,6 @@ function get_answer_string(question, question_db, is_kmp) {
                 question: newQuestion,
                 answer: newAnswer
             }
-            add_qna_to_database(newEntry);
 
             let similarity = [];
             let found_exact = false;
