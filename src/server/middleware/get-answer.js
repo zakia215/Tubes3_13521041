@@ -106,16 +106,14 @@ function get_answer_string(question, question_db, is_kmp) {
                     try {
                         const result = calculator.evaluate(has_math_prop[i]);
                         // console.log(`Result: ${result}`);
-                        answer_list.push(`${i}. ${result}`);
-                    } catch (error) {
-                        if (isNaN(error.message)) {
-                            let errorr = 'Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.';
-                            // console.log(`Error: ${errorr}`);
-                            answer_list.push(`${i}. ${errorr}`);
+                        if (Number.isNaN(result)) {
+                            answer_list.push('Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.')
                         } else {
-                            // console.log(`Error: ${error.message}`);
-                            answer_list.push(`${i}. ${error.message}`);
+                            answer_list.push(`Hasil dari persamaan tersebut adalah ${result}`);
                         }
+                    } catch (error) {
+                        // console.log(`Error: ${error.message}`);
+                        answer_list.push(error.message);
                     }
                 }
             }
