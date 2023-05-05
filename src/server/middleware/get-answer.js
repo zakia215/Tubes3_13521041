@@ -7,7 +7,6 @@ const {
     CompareString
 } = require('../algorithms/Levenshtein.js');
 const {
-    operations,
     date,
     del_question,
     add_question,
@@ -35,12 +34,14 @@ function insert_descending(arr, obj) {
 const add_qna_to_database = async (newEntry) => {
     try {
         // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
-        const found = await QnA.findOne({ question: { $regex: newEntry.question, $options: 'i' } })
-        if (found) {
-            return false;
+        const found = await QnA.findOneAndUpdate({ question: { $regex: newEntry.question, $options: 'i' }}, newEntry, {
+            new: true,
+            runValidators: true
+        });
+        if (!found) {
+            const chat = await QnA.create(newEntry);
+            console.log(chat);
         }
-        const chat = await QnA.create(newEntry);
-        console.log(chat);
         return true;
     } catch (error) {
         console.log(error);
@@ -233,7 +234,7 @@ function get_answer_string(question, question_db, is_kmp) {
             if (i != 0) {
                 answer_string += "\n\n";
             }
-            answer_string += (i + 1) + ". " + question_list[i] + "\n\n";
+            answer_string += "- " + question_list[i] + "\n\n";
             answer_string += answer_list[i];
         }
     }
