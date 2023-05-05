@@ -103,17 +103,20 @@ function get_answer_string(question, question_db, is_kmp) {
             } else {
                 let ansCalStr = `Dari pertanyaan yang diberikan, terdapat ${has_math_prop.length} persamaan. Berikut adalah hasilnya\n` 
                 for (let i = 0; i < has_math_prop.length; i++) {
+                    if (i != 0) {
+                        ansCalStr += "\n";
+                    }
                     try {
                         const result = calculator.evaluate(has_math_prop[i]);
                         // console.log(`Result: ${result}`);
                         if (Number.isNaN(result)) {
-                            ansCalStr += `${i+1}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.\n`;
+                            ansCalStr += `${i+1}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.`;
                         } else {
-                            ansCalStr += `${i+1}. Hasil dari persamaan tersebut adalah ${result}\n`;
+                            ansCalStr += `${i+1}. Hasil dari persamaan tersebut adalah ${result}`;
                         }
                     } catch (error) {
                         // console.log(`Error: ${error.message}`);
-                        ansCalStr += `${i+1}. ${error.message}\n`;
+                        ansCalStr += `${i+1}. ${error.message}`;
                     }
                 }
                 answer_list.push(ansCalStr);
