@@ -1,11 +1,11 @@
 // tinggal .match() kalo mau coockin
 const operations = /^(\s*\d+(\.\d+)?\s*([-+*/]\s*\d+(\.\d+)?\s*)*\s*)+&/ig
 const date = /(0?[1-9]|[1-2][0-9]|3[0-1])\/(0?[1-9]|1[0-2])\/\d{4}/g
-const del_question = /^hapus pertanyaan (.+) dari .* database$/i;
+const del_question = /^hapus pertanyaan (.+) dari.* database$/i;
 const add_question = /^tambah pertanyaan (.+) jawaban (.+)$/i;
 
 function hasMathProperties(string) {
-    const mathProperties = /([\s\d-.+/*()])+/ig
+    const mathProperties = /([\s\d-.+/*^()])+/ig
     const matches = string.match(mathProperties);
     const result = []
     for (let match of matches) {
@@ -62,18 +62,17 @@ function getDay(validDate) {
 //     console.log(question_list[i].trim());
 // }
 
-// const str = "Tambah pertanyaan Apa ibukota indonesia? jawaban Jakarta Tambah pertanyaan Apa ibukota indonesia? jawaban Jakarta";
-// const match = str.match(add_question);
+// const str = "Hapus pertanyaan in the biningging dari dalam database";
+// const match = str.match(del_question);
 
 // if (match) {
 //     console.log(match);
 //     const pertanyaan = match[1];
-//     const jawaban = match[2];
 //     console.log("Pertanyaan: ", pertanyaan);
-//     console.log("Jawaban: ", jawaban);
 // } else {
 //     console.log("String tidak cocok dengan regex.");
 // }
+
 
 // console.log(eval('5 * 8 - 10 + - + / 3'));
 
