@@ -1,5 +1,5 @@
 // 3 * 5
-import { Calculator } from './calculator.js';
+const { Calculator } = require('../algorithms/Calculator');
 const { BMSearch } = require('../algorithms/boyer_moore.js');
 const { KMPSearch } = require('../algorithms/kmp.js');
 const {
@@ -85,7 +85,7 @@ function get_answer_string(question, question_db, is_kmp) {
             } else {
                 answer_list.push("Format tanggal tidak sesuai");
             }
-        } else if (has_math_prop) {
+        } else if (has_math_prop.length != 0) {
             const calculator = new Calculator();
             if (has_math_prop.length === 1) {
                 try {
@@ -268,7 +268,7 @@ function get_answer_string(question, question_db, is_kmp) {
 // ]
 
 // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
-// const answer_list = get_answer_string("hapus pertanyaan apa hayooo?? dari database", qna_db, true);
+// const answer_list = get_answer_string("tambah pertanyaan fiesta dengan jawaban chicken nugget", qna_db, true);
 // console.log(answer_list);
 // const to_add = {
 //     question: "Apa ibukota indonesia?",
