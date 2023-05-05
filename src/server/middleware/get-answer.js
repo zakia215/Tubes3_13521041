@@ -34,24 +34,27 @@ function insert_descending(arr, obj) {
 const add_qna_to_database = async (newEntry) => {
     try {
         // connectDB("mongodb+srv://stimatri:oHxZfO4TSDR9KyfC@stimatri.ymw1fsj.mongodb.net/SimpleChatGPT?retryWrites=true&w=majority");
-        const found = await QnA.findOneAndUpdate({ question: { $regex: newEntry.question, $options: 'i' }}, newEntry, {
-            new: true,
-            runValidators: true
-        });
-        if (!found) {
-            const chat = await QnA.create(newEntry);
-            console.log(chat);
-        }
-        return true;
+        await QnA.create(newEntry);
     } catch (error) {
         console.log(error);
-        return false;
     }
 }
 
+const update_qna = async (newEntry) => {
+    try {
+        await QnA.findOneAndUpdate({ _id: newEntry._id }, { answer: newEntry.answer }, {
+            new: true,
+            runValidators: true
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const delete_qna_from_database = async (questionRemoved) => {
     try {
-        const found = await QnA.findOneAndDelete({ question: { $regex: questionRemoved, $options: 'i' } });
+        const found = await QnA.findOneAndDelete(questionRemoved);
         if (!found) {
             return false;
         }
@@ -102,7 +105,7 @@ function get_answer_string(question, question_db, is_kmp) {
                     answer_list.push(error.message);
                 }
             } else {
-                let ansCalStr = `Dari pertanyaan yang diberikan, terdapat ${has_math_prop.length} persamaan. Berikut adalah hasilnya\n` 
+                let ansCalStr = `Dari pertanyaan yang diberikan, terdapat ${has_math_prop.length} persamaan. Berikut adalah hasilnya\n`
                 for (let i = 0; i < has_math_prop.length; i++) {
                     if (i != 0) {
                         ansCalStr += "\n";
@@ -111,26 +114,83 @@ function get_answer_string(question, question_db, is_kmp) {
                         const result = calculator.evaluate(has_math_prop[i]);
                         // console.log(`Result: ${result}`);
                         if (Number.isNaN(result)) {
-                            ansCalStr += `${i+1}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.`;
+                            ansCalStr += `${i + 1}. Persamaan tidak dapat diselesaikan karena persamaan tidak sesuai.`;
                         } else {
-                            ansCalStr += `${i+1}. Hasil dari persamaan tersebut adalah ${result}`;
+                            ansCalStr += `${i + 1}. Hasil dari persamaan tersebut adalah ${result}`;
                         }
                     } catch (error) {
                         // console.log(`Error: ${error.message}`);
-                        ansCalStr += `${i+1}. ${error.message}`;
+                        ansCalStr += `${i + 1}. ${error.message}`;
                     }
                 }
                 answer_list.push(ansCalStr);
             }
         } else if (is_del_question) {
-            const question = is_del_question[1];
-            const success = delete_qna_from_database(question);
-            if (success) {
-                answer_list.push("Pertanyaan telah dihapus dari database");
+            let similarity = [];
+            let found_exact = false;
+            if (is_kmp) {
+                for (let i = 0; i < question_db.length; i++) {
+                    if (KMPSearch(question_db[i].question.trim(), is_del_question[1]) != -1) {
+                        similarity.slice(0, 0, {
+                            index: i,
+                            value: 100
+                        });
+                        delete_qna_from_database({ _id: question_db[i]._id });
+                        answer_list.push("Pertanyaan berhasil dihapus dari database");
+                        found_exact = true;
+                        break;
+                    } else {
+                        let [count1, count2] = CompareString(question_db[i].question, is_del_question[1]);
+                        let LD = LevenshteinDistance(question_db[i].question, is_del_question[1]);
+                        const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
+                        if (lev_value > 70) {
+                            const obj = {
+                                index: i,
+                                value: lev_value
+                            }
+                            insert_descending(similarity, obj);
+                        }
+                    }
+                }
             } else {
-                answer_list.push("Pertanyaan gagal dihapus dari database");
+                for (let i = 0; i < question_db.length; i++) {
+                    if (BMSearch(question_db[i].question, is_del_question[1]) != -1) {
+                        similarity.slice(0, 0, {
+                            index: i,
+                            value: 100
+                        });
+                        delete_qna_from_database({ _id: question_db[i]._id });
+                        answer_list.push("Pertanyaan berhasil dihapus dari database");
+                        found_exact = true;
+                        break;
+                    } else {
+                        let [count1, count2] = CompareString(question_db[i].question, is_del_question[1]);
+                        let LD = LevenshteinDistance(question_db[i].question, is_del_question[1]);
+                        const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
+                        if (lev_value > 70) {
+                            const obj = {
+                                index: i,
+                                value: lev_value
+                            }
+                            insert_descending(similarity, obj);
+                        }
+                    }
+                }
             }
-
+            if (!found_exact) {
+                if (similarity.length == 0) {
+                    answer_list.push("Jawaban tidak ada dalam database");
+                } else {
+                    const max = similarity[0].value;
+                    if (max > 90) {
+                        delete_qna_from_database({ _id: question_db[similarity[0].index]._id });
+                        answer_list.push("Jawaban berhasil dihapus dari database");
+                    } else {
+                        let answer_string = "Pertanyaan tidak ditemukan di database.";
+                        answer_list.push(answer_string);
+                    }
+                }
+            }
         } else if (is_add_question) {
             const newQuestion = is_add_question[1];
             const newAnswer = is_add_question[2];
@@ -138,11 +198,74 @@ function get_answer_string(question, question_db, is_kmp) {
                 question: newQuestion,
                 answer: newAnswer
             }
-            const success = add_qna_to_database(newEntry);
-            if (success) {
-                answer_list.push("Berhasil menambahkan pertanyaan ke dalam database");
+            add_qna_to_database(newEntry);
+
+            let similarity = [];
+            let found_exact = false;
+            if (is_kmp) {
+                for (let i = 0; i < question_db.length; i++) {
+                    if (KMPSearch(question_db[i].question.trim(), is_add_question[1]) != -1) {
+                        similarity.slice(0, 0, {
+                            index: i,
+                            value: 100
+                        });
+                        update_qna({ _id: question_db[i]._id, answer: newAnswer });
+                        answer_list.push("Jawaban berhasil di-update");
+                        found_exact = true;
+                        break;
+                    } else {
+                        let [count1, count2] = CompareString(question_db[i].question, is_add_question[1]);
+                        let LD = LevenshteinDistance(question_db[i].question, is_add_question[1]);
+                        const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
+                        if (lev_value > 70) {
+                            const obj = {
+                                index: i,
+                                value: lev_value
+                            }
+                            insert_descending(similarity, obj);
+                        }
+                    }
+                }
             } else {
-                answer_list.push("Pertanyaan gagal dimasukkan di dalam database")
+                for (let i = 0; i < question_db.length; i++) {
+                    if (BMSearch(question_db[i].question, is_add_question[1]) != -1) {
+                        similarity.slice(0, 0, {
+                            index: i,
+                            value: 100
+                        });
+                        update_qna({ _id: question_db[i]._id, answer: newAnswer });
+                        answer_list.push("Jawaban berhasil di-update");
+                        found_exact = true;
+                        break;
+                    } else {
+                        let [count1, count2] = CompareString(question_db[i].question, is_add_question[1]);
+                        let LD = LevenshteinDistance(question_db[i].question, is_add_question[1]);
+                        const lev_value = 100 - LD - 2 * ((count1 - count2) ** 2) + count2;
+                        if (lev_value > 70) {
+                            const obj = {
+                                index: i,
+                                value: lev_value
+                            }
+                            insert_descending(similarity, obj);
+                        }
+                    }
+                }
+            }
+            if (!found_exact) {
+                if (similarity.length == 0) {
+                    add_qna_to_database(newEntry);
+                    answer_list.push("Menambahkan jawaban ke dalam database");
+                } else {
+                    const max = similarity[0].value;
+                    if (max > 90) {
+                        update_qna({ _id: question_db[i]._id, answer: newAnswer });
+                        answer_list.push("Jawaban berhasil di-update");
+                    } else {
+                        add_qna_to_database(newEntry);
+                        let answer_string = "Menambahkan jawaban ke dalam database";
+                        answer_list.push(answer_string);
+                    }
+                }
             }
 
         } else {
@@ -210,7 +333,7 @@ function get_answer_string(question, question_db, is_kmp) {
                         answer_list.push(question_db[similarity[0].index].answer);
                     } else {
                         let answer_string = "Pertanyaan tidak ditemukan di database.\nApakah maksud anda:\n";
-                        
+
                         const upperBound = Math.min(similarity.length, 3);
                         for (let i = 0; i < upperBound; i++) {
                             if (i != 0) {

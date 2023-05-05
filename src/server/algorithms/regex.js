@@ -46,7 +46,7 @@ function getDay(validDate) {
     const monthMatch = validDate.slice(3, 5);
     const yearMatch = validDate.slice(6, 10);
     const date1 = new Date(monthMatch + '/' + dateMatch + '/' + yearMatch);
-    const weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const weekday = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     return weekday[date1.getDay()];
 }
 
