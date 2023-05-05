@@ -1,5 +1,5 @@
 // 3 * 5
-import { Calculator } from './calculator.js';
+const { Calculator } = require('../algorithms/Calculator');
 const { BMSearch } = require('../algorithms/boyer_moore.js');
 const { KMPSearch } = require('../algorithms/kmp.js');
 const {
