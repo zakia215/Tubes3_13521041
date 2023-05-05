@@ -73,7 +73,9 @@ function getDay(validDate) {
 //     console.log("String tidak cocok dengan regex.");
 // }
 
-
+const string = "hasil dari 2.5 ^ (3.5-5.5) dan hasil dari 5 + 7";
+const mathResult = hasMathProperties(string);
+console.log(mathResult);
 // console.log(eval('5 * 8 - 10 + - + / 3'));
 
 module.exports = {
