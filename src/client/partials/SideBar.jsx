@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 SideBar.propTypes = {
   setKmp: PropTypes.func.isRequired,
+  chatId: PropTypes.string,
 };
 
 function SideBar(props) {
@@ -25,7 +26,8 @@ function SideBar(props) {
     axios.post('https://tubes313521041-production.up.railway.app/api/chat', {
       name: 'New Chat'
     })
-    .then(response => {      setChatsObject(response.data);
+    .then(response => {      
+      setChatsObject(response.data);
       console.log(response);
       setChatNameList(prevState => [...prevState, {id: response.data.chat._id, name: response.data.chat.name}]);
       navigate(`/c/${response.data.chat._id}`);
@@ -58,7 +60,7 @@ function SideBar(props) {
         <button className="new-chat-button" onClick={handleNewChatClick}>+ New Chat</button>
       </div>
 
-      <History chatNameList={chatNameList} setChatNameList={setChatNameList} setChatsObject={setChatsObject} />
+      <History chatNameList={chatNameList} chatId={props.chatId} setChatNameList={setChatNameList} setChatsObject={setChatsObject} />
 
       <div className="selected-algorithm-container">
         <div id="selected-algorithm">Selected Algorithm</div>
