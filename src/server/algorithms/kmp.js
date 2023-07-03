@@ -44,6 +44,6 @@ function borderFunction(pattern) {
     return prefixTable;
 }
 
-console.log(KMPSearch('dynasties and distopia', 'd'));
+console.log(borderFunction("abacab"));
 
 module.exports = { KMPSearch };
