@@ -16,7 +16,7 @@ function MagicConchShellForm(props) {
     setInputText("");
     console.log(props.id);
     e.preventDefault();
-    axios.patch(`https://tubes313521041-production.up.railway.app/api/chat/${props.id}`, {
+    axios.patch(`https://conch-backend.vercel.app/api/chat/${props.id}`, {
       question: inputText,
       kmp: props.kmp
     })

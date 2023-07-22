@@ -23,7 +23,7 @@ function SideBar(props) {
   };
 
   const handleNewChatClick = () => {
-    axios.post('https://tubes313521041-production.up.railway.app/api/chat', {
+    axios.post('https://conch-backend.vercel.app/api/chat', {
       name: 'New Chat'
     })
     .then(response => {      
@@ -38,7 +38,7 @@ function SideBar(props) {
   }
   
   useEffect(() => {
-    axios.get('https://tubes313521041-production.up.railway.app/api/chat')
+    axios.get('https://conch-backend.vercel.app/api/chat')
         .then(response => {
             setChatsObject(response.data);
             console.log(response.data);

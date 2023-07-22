@@ -66,7 +66,7 @@ function History(props) {
       return;
     }
   
-    axios.patch(`https://tubes313521041-production.up.railway.app/api/chat/${id}`, { name: inputValues[id] })
+    axios.patch(`https://conch-backend.vercel.app/api/chat/${id}`, { name: inputValues[id] })
       .then(response => {
         const updatedChatNameList = props.chatNameList.map(chat => chat.id === id ? { ...chat, name: inputValues[id] } : chat);
         props.setChatNameList(updatedChatNameList);

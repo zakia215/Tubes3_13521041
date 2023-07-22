@@ -19,7 +19,7 @@ function ChatSide(props) {
 
   useEffect(() => {
     if (props.chatId) {
-      axios.get(`https://tubes313521041-production.up.railway.app/api/chat/${props.chatId}`)
+      axios.get(`https://conch-backend.vercel.app/api/chat/${props.chatId}`)
       .then(response => {
         setChatObject(response.data);
         console.log(response.data);
